@@ -1,0 +1,25 @@
+﻿<Project Sdk="Aspire.AppHost.Sdk/13.2.4">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>8226617f-b532-4ffb-a8a1-69f540e3b97f</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.SqlServer" Version="13.2.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Asp.Net.Core.Learning.APIGateway\Asp.Net.Core.Learning.APIGateway.csproj" />
+    <ProjectReference Include="..\..\Asp.Net.Core.Learning.CatalogMicroservice\Asp.Net.Core.Learning.CatalogMicroservice.csproj" />
+    <ProjectReference Include="..\..\Asp.Net.Core.Learning.IdentityServer\Asp.Net.Core.Learning.IdentityServer.csproj" />
+    <ProjectReference Include="..\..\Asp.Net.Core.Learning.OrderMicroservice\Asp.Net.Core.Learning.OrderMicroservice.csproj" />
+    <ProjectReference Include="..\..\Asp.Net.Core.Learning.ShoppingBasketMicroservice\Asp.Net.Core.Learning.ShoppingBasketMicroservice.csproj" />
+    <ProjectReference Include="..\..\Asp.Net.Core.Learning.UI\Asp.Net.Core.Learning.UI.csproj" />
+    <ProjectReference Include="..\Asp.Net.Core.Learning.AspireServer.ServiceDefaults\Asp.Net.Core.Learning.AspireServer.ServiceDefaults.csproj" />
+  </ItemGroup>
+
+</Project>

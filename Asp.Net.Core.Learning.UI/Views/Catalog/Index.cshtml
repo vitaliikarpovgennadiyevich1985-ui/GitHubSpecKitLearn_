@@ -1,0 +1,173 @@
+﻿@model CatalogPageViewModel
+@{
+    ViewData["Title"] = "Catalog";
+}
+
+<style>
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .product-card {
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        padding: 0.75rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+        transition: box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    .product-card:hover {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        border-color: #adb5bd;
+        cursor: pointer;
+    }
+
+    .product-img-placeholder {
+        width: 128px;
+        height: 128px;
+        background-color: #cccccc;
+    }
+
+    .product-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .catalog-loading {
+        min-height: 260px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .catalog-error {
+        min-height: 260px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    @@media (max-width: 992px) {
+        .product-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @@media (max-width: 576px) {
+        .product-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div id="catalog-host">
+    <partial name="_CatalogPage" model="Model" />
+</div>
+
+<script>
+    (() => {
+        const host = document.getElementById("catalog-host");
+        if (!host) {
+            return;
+        }
+
+        let currentPage = @Model.PageNumber;
+        let currentPageSize = @Model.PageSize;
+        let requestSequence = 0;
+
+        const loadingTemplate = `
+            <div class="catalog-loading" role="status" aria-live="polite">
+                <div class="text-center">
+                    <div class="spinner-border text-primary" role="status" aria-hidden="true"></div>
+                    <div class="mt-2 text-muted">Loading products...</div>
+                </div>
+            </div>`;
+
+        const renderError = () => {
+            host.innerHTML = `
+                <div class="catalog-error">
+                    <div class="alert alert-danger text-center" role="alert">
+                        <h4 class="alert-heading mb-2">Unable to load catalog page</h4>
+                        <p class="mb-3">Something went wrong while loading products. Please try again.</p>
+                        <button type="button" class="btn btn-danger" data-retry="true">Retry</button>
+                    </div>
+                </div>`;
+        };
+
+        const loadPage = async (pageNumber, pageSize) => {
+            const nextRequest = ++requestSequence;
+            host.innerHTML = loadingTemplate;
+
+            try {
+                const url = `/Catalog/Page?pageNumber=${pageNumber}&pageSize=${pageSize}`;
+                const response = await fetch(url, {
+                    method: "GET",
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest"
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Request failed: ${response.status}`);
+                }
+
+                const html = await response.text();
+
+                if (nextRequest !== requestSequence) {
+                    return;
+                }
+
+                currentPage = pageNumber;
+                currentPageSize = pageSize;
+                host.innerHTML = html;
+            } catch {
+                if (nextRequest !== requestSequence) {
+                    return;
+                }
+
+                renderError();
+            }
+        };
+
+        host.addEventListener("click", (event) => {
+            const retryButton = event.target.closest("[data-retry='true']");
+            if (retryButton) {
+                loadPage(currentPage, currentPageSize);
+                return;
+            }
+
+            const pageButton = event.target.closest("[data-page]");
+            if (!pageButton || pageButton.disabled) {
+                return;
+            }
+
+            const requestedPage = Number(pageButton.getAttribute("data-page"));
+            if (!Number.isFinite(requestedPage) || requestedPage < 1) {
+                return;
+            }
+
+            loadPage(requestedPage, currentPageSize);
+        });
+
+        host.addEventListener("change", (event) => {
+            const pageSizeSelect = event.target.closest("[data-page-size]");
+            if (!pageSizeSelect || pageSizeSelect.disabled) {
+                return;
+            }
+
+            const requestedPageSize = Number(pageSizeSelect.value);
+            if (!Number.isFinite(requestedPageSize) || requestedPageSize < 1) {
+                return;
+            }
+
+            loadPage(1, requestedPageSize);
+        });
+    })();
+</script>

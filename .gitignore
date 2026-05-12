@@ -1,0 +1,40 @@
+# Build outputs
+bin/
+obj/
+out/
+[Bb]uild/
+[Rr]elease/
+[Dd]ebug/
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# .NET artifacts
+*.cache
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+*.snk
+TestResults/
+artifacts/
+packages/
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+
+# Environment and secrets
+.env
+.env.*
+
+# OS files
+.DS_Store
+Thumbs.db

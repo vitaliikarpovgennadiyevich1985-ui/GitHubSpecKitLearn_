@@ -1,0 +1,21 @@
+﻿@using Asp.Net.Core.Learning.IdentityServer.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+
+<ul>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li>Hello @User.Identity?.Name</li>
+        <li>
+            <form asp-area="Identity" asp-page="/Account/Logout" method="post">
+                <button type="submit">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li>
+            <a asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    }
+</ul>

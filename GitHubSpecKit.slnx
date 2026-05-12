@@ -1,0 +1,10 @@
+<Solution>
+  <Project Path="Asp.Net.Core.Learning.APIGateway/Asp.Net.Core.Learning.APIGateway.csproj" />
+  <Project Path="Asp.Net.Core.Learning.AspireServer/Asp.Net.Core.Learning.AspireServer.AppHost/Asp.Net.Core.Learning.AspireServer.AppHost.csproj" Id="571cb236-8545-4fe0-a4da-44df4113cb56" />
+  <Project Path="Asp.Net.Core.Learning.AspireServer/Asp.Net.Core.Learning.AspireServer.ServiceDefaults/Asp.Net.Core.Learning.AspireServer.ServiceDefaults.csproj" />
+  <Project Path="Asp.Net.Core.Learning.CatalogMicroservice/Asp.Net.Core.Learning.CatalogMicroservice.csproj" />
+  <Project Path="Asp.Net.Core.Learning.IdentityServer/Asp.Net.Core.Learning.IdentityServer.csproj" />
+  <Project Path="Asp.Net.Core.Learning.OrderMicroservice/Asp.Net.Core.Learning.OrderMicroservice.csproj" />
+  <Project Path="Asp.Net.Core.Learning.ShoppingBasketMicroservice/Asp.Net.Core.Learning.ShoppingBasketMicroservice.csproj" />
+  <Project Path="Asp.Net.Core.Learning.UI/Asp.Net.Core.Learning.UI.csproj" />
+</Solution>

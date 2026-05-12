@@ -1,0 +1,54 @@
+@model Asp.Net.Core.Learning.UI.Models.TokensViewModel
+@{
+    ViewData["Title"] = "Tokens";
+}
+
+<h2>Session Tokens</h2>
+
+<style>
+    .token-table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+    }
+
+    .token-table th,
+    .token-table td {
+        border: 1px solid #dee2e6;
+        padding: 0.75rem;
+        vertical-align: top;
+    }
+
+    .token-table th {
+        background-color: #f8f9fa;
+        width: 140px;
+        font-weight: 600;
+    }
+
+    .token-pre {
+        margin: 0;
+        white-space: pre-wrap;
+        word-break: break-all;
+        font-size: 0.8rem;
+        background-color: #f8f9fa;
+        padding: 0.5rem;
+        border-radius: 4px;
+    }
+</style>
+
+<table class="token-table">
+    <tbody>
+        <tr>
+            <th>Identity Token</th>
+            <td><pre class="token-pre">@Model.IdentityTokenDisplay</pre></td>
+        </tr>
+        <tr>
+            <th>Access Token</th>
+            <td><pre class="token-pre">@Model.AccessTokenDisplay</pre></td>
+        </tr>
+        <tr>
+            <th>Refresh Token</th>
+            <td><pre class="token-pre">@Model.RefreshTokenDisplay</pre></td>
+        </tr>
+    </tbody>
+</table>
