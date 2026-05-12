@@ -16,7 +16,7 @@ namespace Asp.Net.Core.Learning.CatalogMicroservice.Data
         {
             var products = new Product[100];
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 200; i++)
             {
                 double hue = i * 3.6;
                 (byte r, byte g, byte b) = HsvToRgb(hue);
